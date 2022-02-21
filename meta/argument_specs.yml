@@ -1,0 +1,44 @@
+argument_specs:
+  main:
+    short_description: Main entrypoint
+    options:
+      postgres.data_dir:
+        type: path
+        default: '/srv/data/guacamole/database'
+        required: no
+        description: Path to store Postgres-Data
+      postgres.db_name:
+        type: str
+        default: 'guacamole_db'
+        required: no
+        description: Guacamole DB name.
+      postgres.auto_create_accounts:
+        type: bool
+        default: true
+        required: no
+        description: auto create user accounts
+      guacamole.data_dir:
+        type: path
+        default: '/srv/data/guacamole/guacamole'
+        required: no
+        description: Path to store Guacamole-Data
+      guacamole.home:
+        type: path
+        default: '/guac'
+        required: no
+        description: Path to the Guacamole User
+      version_tags.guacd:
+        type: str
+        default: '1.4.0'
+        required: no
+        description: Version Tag of guacamole-server
+      version_tags.guacamole:
+        type: str
+        default: '1.4.0_fix1433'
+        required: no
+        description: Version Tag of guacamole-client
+      version_tags.postgres:
+        type: str
+        default: '14.0'
+        required: no
+        description: Version Tag of postgres

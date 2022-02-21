@@ -1,0 +1,5 @@
+---
+version_tags:
+  guacd: '1.4.0'
+  guacamole: '1.4.0_fix1433'
+  postgres: '14.0'
