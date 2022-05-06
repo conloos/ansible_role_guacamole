@@ -18,9 +18,4 @@
     that:
       - postgres.auto_create_accounts is defined
       - postgres.auto_create_accounts | bool
-
-
-
-
-
 ...
