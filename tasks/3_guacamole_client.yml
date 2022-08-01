@@ -25,6 +25,7 @@
   ansible.builtin.git:
     repo: 'https://github.com/apache/guacamole-client'
     dest: '{{ dockerbuild.path }}'
+    version: '{{ version_tags.guacamole }}_fix1433'
 
 - name: build container guacamole-client aka guacamole
   community.docker.docker_image:
@@ -69,7 +70,7 @@
 - name: create container guacamole
   community.docker.docker_container:
     name: guacamole
-    image: 'guacamole/guacamole:{{ version_tags.guacamole }}'
+    image: 'guacamole/guacamole:{{ version_tags.guacamole }}_fix1433'
     state: started
     restart_policy: always
     env:
