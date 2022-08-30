@@ -14,6 +14,6 @@
     image: 'guacamole/guacd:{{ version_tags.guacd }}'
     state: started
     restart_policy: always
-    interactive: true
-    tty: true
+    interactive: True
+    tty: True
 ...

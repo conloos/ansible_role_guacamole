@@ -12,7 +12,7 @@ argument_specs:
         description: Guacamole DB name.
       postgres.auto_create_accounts:
         type: bool
-        default: true
+        default: True
         description: auto create user accounts
       guacamole.data_dir:
         type: path
