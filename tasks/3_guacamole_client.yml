@@ -4,7 +4,7 @@
 # The bug fix has already been integrated into CVS.
 # Therefore, the container has to be built by yourself.
 # source: https://issues.apache.org/jira/browse/GUACAMOLE-1433?page=com.atlassian.jira.plugin.system.issuetabpanels%3Aall-tabpanel
-
+#
 # # Download container at Dockerhub
 # - name: pull guacamole
 #   community.docker.docker_image:
@@ -14,29 +14,29 @@
 #     pull:
 #       platform: amd64
 
-# Workaround: create container from source 
+# Workaround: create container from source
 - name: Create temp directory
   ansible.builtin.tempfile:
     state: directory
     suffix: dockerbuild-temp
   register: dockerbuild
 
-- name: git checkout guacamole-client
+- name: Git checkout guacamole-client
   ansible.builtin.git:
     repo: 'https://github.com/apache/guacamole-client'
     dest: '{{ dockerbuild.path }}'
     version: '{{ version_tags.guacamole }}_fix1433'
 
-- name: build container guacamole-client aka guacamole
+- name: Build container guacamole-client aka guacamole
   community.docker.docker_image:
     name: guacamole/guacamole
     tag: 1.4.0_fix1433
-    build: 
+    build:
       path: '{{ dockerbuild.path }}'
     source: build
     state: present
 
-- name: cleanup dockerbuild tempfile
+- name: Cleanup dockerbuild tempfile
   ansible.builtin.file:
     path: "{{ dockerbuild.path }}"
     state: absent
@@ -48,26 +48,28 @@
     suffix: sql
   register: initdb
 
-- name: get sql-schema
-  shell: docker run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --postgres > '{{ initdb.path }}/initdb.sql'
+- name: Get sql-schema  # noqa no-changed-when
+  ansible.builtin.command:
+    cmd: docker run --rm guacamole/guacamole /opt/guacamole/bin/initdb.sh --postgres > '{{ initdb.path }}/initdb.sql'
 
-- name: copy sql-schema to postgres
-  shell: docker cp '{{ initdb.path }}/initdb.sql' guac-postgres:/initdb.sql
+- name: Copy sql-schema to postgres  # noqa no-changed-when
+  ansible.builtin.command:
+    cmd: docker cp '{{ initdb.path }}/initdb.sql' guac-postgres:/initdb.sql
 
-- name: populating guacamole db
+- name: Populating guacamole db
   community.docker.docker_container_exec:
     container: guac-postgres
     user: '{{ vault_guacamole.postgres_user_name }}'
     command: psql guacamole_db postgres -f /initdb.sql
 
 # cleanup workaround - build from source
-- name: cleanup dockerbuild tempfile
+- name: Cleanup dockerbuild tempfile
   ansible.builtin.file:
     path: "{{ initdb.path }}"
     state: absent
 
 # start cuacamole client
-- name: create container guacamole
+- name: Create container guacamole
   community.docker.docker_container:
     name: guacamole
     image: 'guacamole/guacamole:{{ version_tags.guacamole }}_fix1433'

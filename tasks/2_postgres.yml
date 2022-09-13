@@ -1,6 +1,6 @@
 ---
 # Create database as container
-- name: pull postgres
+- name: Pull postgres
   community.docker.docker_image:
     name: postgres
     source: pull
@@ -8,7 +8,7 @@
     pull:
       platform: amd64
 
-- name: create container postgres
+- name: Create container postgres
   community.docker.docker_container:
     name: guac-postgres
     image: 'postgres:{{ version_tags.postgres }}'

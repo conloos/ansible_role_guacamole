@@ -1,6 +1,6 @@
 ---
 # Create Guacamole Server
-- name: pull guacd
+- name: Pull guacd
   community.docker.docker_image:
     name: guacamole/guacd
     source: pull
@@ -8,12 +8,12 @@
     pull:
       platform: amd64
 
-- name: create container guacd
+- name: Create container guacd
   community.docker.docker_container:
     name: guacd
     image: 'guacamole/guacd:{{ version_tags.guacd }}'
     state: started
     restart_policy: always
-    interactive: True
-    tty: True
+    interactive: true
+    tty: true
 ...

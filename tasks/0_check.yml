@@ -1,20 +1,20 @@
 ---
 - name: Verify that required parameters are set
-  assert:
+  ansible.builtin.assert:
     that:
-      - '{{ item }} is defined'
-      - '{{ item }} | length > 0'
+      - '{{ item.key }} is defined'
+      - '{{ item.key }} | length > 0'
   with_items:
-    - postgres.data_dir
-    - postgres.db_name
-    - guacamole.data_dir
-    - guacamole.home
-    - version_tags.guacd
-    - version_tags.guacamole
-    - version_tags.postgres
+    - { 'key': postgres.data_dir }
+    - { 'key': postgres.db_name }
+    - { 'key': guacamole.data_dir }
+    - { 'key': guacamole.home }
+    - { 'key': version_tags.guacd }
+    - { 'key': version_tags.guacamole }
+    - { 'key': version_tags.postgres }
 
 - name: Verify that required parameters are set - bool
-  assert:
+  ansible.builtin.assert:
     that:
       - postgres.auto_create_accounts is defined
       - postgres.auto_create_accounts | bool

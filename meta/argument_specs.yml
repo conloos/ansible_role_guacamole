@@ -1,6 +1,12 @@
+---
 argument_specs:
   main:
-    short_description: Main entrypoint
+    # https://docs.ansible.com/ansible/latest/user_guide/playbooks_reuse_roles.html#role-argument-validation
+    # https://docs.ansible.com/ansible/latest/dev_guide/developing_program_flow_modules.html#argument-spec
+    short_description: Role for installing guacamole by docker container.
+    description: Role for installing guacamole by docker container.
+    author:
+      - Frank Dornheim
     options:
       postgres.data_dir:
         type: path
@@ -12,7 +18,7 @@ argument_specs:
         description: Guacamole DB name.
       postgres.auto_create_accounts:
         type: bool
-        default: True
+        default: true
         description: auto create user accounts
       guacamole.data_dir:
         type: path
@@ -34,3 +40,4 @@ argument_specs:
         type: str
         default: '14.0'
         description: Version Tag of postgres
+...

@@ -1,16 +1,15 @@
-# Standards: 0.2
 ---
 galaxy_info:
-  # @meta author:value: [Frank Dornheim](https://github.com/conloos)
-  author: "Frank Dornheim <dornheim@posteo.de>"
-  role_name: guacamole
-  description: Role for default settings.
+  author: "Frank Dornheim"
+  role_name: "ansible_guacamole"
+  description: "An Ansible Role to install and configure guacamole by docker."
   license: GPLv3
   min_ansible_version: 2.11.5
   platforms:
     - name: Ubuntu
       versions:
-        - 21.10
-  galaxy_tags: []
-dependencies:
-  - maxhoesel.smallstep.step_bootstrap_host
+        - jammy
+  galaxy_tags:
+    - ansible
+dependencies: []
+...
